@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gratuity-calculator-india.vercel.app/sitemap.xml
