@@ -63,31 +63,16 @@ CONTRIBUTING.md     Contribution guidelines
 LICENSE             MIT License
 ```
 
-## Running Locally
+## Getting Started
 
-No install needed. Just open `index.html` in a browser:
+No install needed. Download or clone and open `index.html` in any browser:
 
 ```bash
-# Option 1: Direct open
-open index.html
-
-# Option 2: Local server (if you want proper paths)
-python3 -m http.server 8000
-# then visit http://localhost:8000
+git clone https://github.com/rohit-wadhwa/gratuity-calculator-india.git
+open gratuity-calculator-india/index.html
 ```
 
-## Deploying
-
-The project is deployed on Vercel. It auto-deploys from the `main` branch.
-
-To deploy your own fork:
-
-1. Fork this repo
-2. Import it in [Vercel](https://vercel.com/new)
-3. Set framework to **Other**, leave build command and output directory empty
-4. Deploy
-
-Vercel will serve the files as-is with the security headers from `vercel.json`.
+Or just [download the ZIP](https://github.com/rohit-wadhwa/gratuity-calculator-india/archive/refs/heads/main.zip), extract, and double-click `index.html`.
 
 ## Contributing
 
