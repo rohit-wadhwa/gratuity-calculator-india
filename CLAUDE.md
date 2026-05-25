@@ -1,78 +1,89 @@
 # CLAUDE.md — Gratuity Calculator (India)
 
-Project context and operating instructions for Claude Code. Read this fully before acting.
+Context for AI assistants (Claude Code, Copilot, etc.) working on this project. Read fully before acting.
 
-## What this project is
+## What This Project Is
 
 A **single-page, static gratuity calculator** for India under the Payment of Gratuity Act, 1972.
 Pure vanilla **HTML + CSS + JS** in one file. **No framework, no build step, no backend, no package.json.**
 All computation runs client-side in the browser.
 
-## File inventory (do not add build tooling)
+## File Inventory
 
 | File | Purpose |
 |------|---------|
-| `index.html` | The entire app — markup, styles, logic, SEO meta, JSON-LD. |
-| `vercel.json` | Security headers (CSP, HSTS, X-Frame-Options…), `cleanUrls`. |
-| `og-image.png` | 1200×630 social share image. |
-| `robots.txt` | Crawler rules + sitemap pointer. |
-| `sitemap.xml` | Single-URL sitemap. |
-| `site.webmanifest` | PWA/mobile metadata. |
+| `index.html` | The entire app — markup, styles, logic, SEO meta, JSON-LD |
+| `vercel.json` | Security headers (CSP, HSTS, X-Frame-Options, etc.), `cleanUrls` |
+| `og-image.png` | 1200x630 social share image |
+| `robots.txt` | Crawler rules + sitemap pointer |
+| `sitemap.xml` | Single-URL sitemap |
+| `site.webmanifest` | PWA/mobile metadata |
+| `README.md` | Project documentation for users and contributors |
+| `CONTRIBUTING.md` | Contribution guidelines |
+| `SUPPORT.md` | How to get help and report issues |
+| `LICENSE` | MIT License |
 
-This is a static site — Vercel should detect **no framework** and **no build command**. Output directory is the project root.
+**Do not add build tooling.** This is a static site — no framework, no build command. Output directory is the project root.
 
-## Deploy target
+## Architecture Decisions
 
-- **Provider:** Vercel
-- **Team / scope:** `isbcs-projects` (id `team_Nc7nn3uMSscJJlKyLFFz1J5y`)
-- **Project name:** `gratuity-calculator-india`
-- **Expected production URL:** `https://gratuity-calculator-india.vercel.app/`
-  (This exact slug is hard-coded in the SEO meta tags, sitemap, and robots.txt. Keep the name so the URLs match — otherwise complete the "post-deploy URL fix" below.)
+- **Single-file is intentional** — `index.html` contains markup, CSS, and JS. Don't split into separate files unless explicitly asked. This makes drag-and-drop deploy trivial.
+- **No dependencies** — No npm, no package.json, no node_modules. Keep it this way.
+- **Client-side only** — All computation runs in the browser. No backend, no API calls, no data transmission.
 
-### Deploy command
+## Deployment
 
-```bash
-# from the project root (the folder containing index.html)
-vercel --prod
+- **Provider:** Vercel (static site, no build step)
+- **Production URL:** `https://gratuity-calculator-india.vercel.app/`
+- **Auto-deploys** from `main` branch via Vercel GitHub integration
+- **Branch protection** — only the maintainer can merge to `main`
+
+The production URL is hard-coded in SEO meta tags, sitemap, and robots.txt. The JS auto-syncs `<canonical>` and `og:url` at runtime, but static values must stay correct for crawlers.
+
+## Privacy / Security Guardrails (NON-NEGOTIABLE)
+
+- **100% generic** — Never hard-code anyone's real salary, name, employer, bank, PAN/PF, or location. The only example value allowed is the neutral `50,000` placeholder.
+- **Client-side only** — Do not add a backend, do not POST form data anywhere, do not add analytics or trackers that transmit user input. The calculator must never send what a user types off their device.
+- **CSP is locked down** — Keep the Content Security Policy in `vercel.json` intact. If you add a script/resource, update CSP deliberately — don't loosen it to `*`.
+- **External resources** — Only Google Fonts (already in CSP). The Buy Me a Coffee button is a plain outbound `<a>` link, not an embedded widget/script — keep it that way.
+
+## Gratuity Formula (Do Not Change Without Legal Source)
+
+**Covered employers** (10+ employees):
+```
+Gratuity = (Basic + DA) x 15 x completed_years / 26
 ```
 
-When prompted: set up & deploy → scope = **isbcs-projects** → project name = **gratuity-calculator-india** → framework = **Other** → leave build/output empty. If the Vercel plugin/integration is used instead of the CLI, deploy as a **static project, no build step**.
+**Uncovered employers:**
+```
+Gratuity = (Basic + DA) x 15 x completed_years / 30
+```
 
-## PRE-deploy checklist (must do)
+- Tax-free cap: Rs 20,00,000 under Section 10(10)
+- Final partial year > 6 months rounds up to a full year
+- Eligibility: 5 years continuous service (waived on death/disability)
 
-1. **Buy Me a Coffee handle** — in `index.html`, find:
-   ```
-   href="https://www.buymeacoffee.com/YOUR_HANDLE"
-   ```
-   Replace `YOUR_HANDLE` with the real handle. **Do not deploy with the placeholder.**
-2. Confirm no personal data is present (see "Privacy / security guardrails"). Run a quick grep before shipping.
+## Editing Conventions
 
-## POST-deploy checklist
+- Indian number formatting uses lakh/crore grouping — preserve the custom `inr()` function
+- CSS uses custom properties defined in `:root` — use them for consistency
+- Breakpoints: 760px (tablet/stack layout), 440px (phone)
+- Touch targets: minimum 44px height on all interactive elements
+- Input font-size: 16px minimum (prevents iOS auto-zoom)
+- Prefer `prefers-reduced-motion` media query for accessibility
 
-1. **Make it public.** In Vercel → Project → Settings → **Deployment Protection** → ensure it is **OFF** (Standard Protection / SSO disabled), so anyone with the link can open it.
-2. **If the final URL is NOT** `gratuity-calculator-india.vercel.app`, update the hard-coded domain in these places (the JS auto-syncs `<canonical>` and `og:url` at runtime, but crawlers/social scrapers need the static values correct):
-   - `index.html`: `<link rel="canonical">`, `og:url`, `og:image`, `twitter:image`
-   - `sitemap.xml`: `<loc>`
-   - `robots.txt`: `Sitemap:` line
-3. **Verify it works:** load on mobile + desktop, confirm the calculation updates live, confirm `og-image.png` resolves at `/og-image.png`.
-4. **Verify headers:** `curl -sI <url>` should show `content-security-policy`, `strict-transport-security`, `x-frame-options: DENY`.
-5. (Optional) Submit the sitemap in Google Search Console for indexing.
+## Code Style
 
-## Privacy / security guardrails (NON-NEGOTIABLE)
+- No comments unless explaining a non-obvious **why**
+- No console.log or debugging artifacts
+- Use existing CSS variables, don't create new color values inline
+- Keep the animation/transition style consistent with existing patterns
 
-- **This is a public tool. Keep it 100% generic.** Never hard-code anyone's real salary, name, employer, bank, PAN/PF, or location. The only example value allowed is the neutral `50,000` placeholder.
-- **Client-side only.** Do not add a backend, do not POST form data anywhere, do not add analytics or trackers that transmit user input. The calculator must never send what a user types off their device.
-- **Keep the CSP in `vercel.json` intact.** If you add a script/resource, update CSP deliberately — don't loosen it to `*`.
-- Only external resource allowed is **Google Fonts** (already in CSP). The Buy Me a Coffee button is a plain outbound `<a>` link, not an embedded widget/script — keep it that way.
+## What NOT To Do
 
-## Editing conventions
-
-- Keep everything in `index.html` — **single-file is intentional** (makes drag-and-drop deploy trivial). Do not split into separate JS/CSS files unless explicitly asked.
-- Indian number formatting (lakh/crore grouping) is custom — preserve it.
-- Gratuity math: covered employers `(Basic+DA × 15 × completed_years) / 26`; uncovered `/ 30`. Tax-free cap `₹20,00,000`. Final partial year >6 months rounds up. Don't change these without a source.
-- Mobile/tablet: breakpoints at 760px (stack) and 440px (phone). Maintain ≥44px touch targets and 16px inputs (prevents iOS zoom).
-
-## Out of scope
-
-- No code beyond this static calculator.
-- Don't introduce dependencies, bundlers, or a server.
+- Don't introduce frameworks, bundlers, or build steps
+- Don't add analytics, trackers, or telemetry
+- Don't split `index.html` into separate files
+- Don't change the gratuity math without citing a legal source
+- Don't add personal/sensitive data in any file
+- Don't loosen the Content Security Policy

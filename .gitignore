@@ -1,0 +1,23 @@
+# Vercel
+.vercel
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# Node (shouldn't exist but just in case)
+node_modules/
+package-lock.json
+yarn.lock
