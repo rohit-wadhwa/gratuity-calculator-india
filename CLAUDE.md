@@ -148,6 +148,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.8.0` — WhatsApp and X share links, native share sheet for Instagram
 - `2.7.0` — skip link, PWA icons, attribution, `llms.txt`
 - `2.6.0` — dark mode, `--field` token for control borders
 - `2.5.0` — DA guidance for Indian salary structures, print action moved beside the result
@@ -204,6 +205,9 @@ These were bugs once. Keep them fixed.
 - **The FAQPage JSON-LD is generated from the page, not hand-written.** After editing any `<details>`, rebuild it so the two cannot drift, then re-run the parity check above.
 - **The result is announced to screen readers ONCE, after typing settles.** `calc()` runs on every keystroke; a live region on the certificate with `aria-atomic="true"` made a screen reader read every intermediate amount aloud. The announcement now goes to a visually-hidden `#srStatus` region debounced by 600ms. Do not put `aria-live` back on `.certificate`.
 - **The salary input means LAST DRAWN Basic + DA.** Not joining salary, not an average, not gross, not take-home. This is the single most common user error, so it is stated in the field hint, in a collapsible payslip guide under the field, in a dedicated page section, and in three FAQs. Do not soften that wording to save space.
+- **Instagram has no web share URL.** There is no intent link to pre-fill an Instagram post, story or DM from a web page — anyone claiming otherwise is wrong. The only route is `navigator.share()`, which opens the phone's own share sheet with Instagram in it. That is why the Share button becomes a native share on mobile and falls back to copy-link on desktop. Do not add an "Instagram" button; it cannot work.
+- **Share links must never carry the user's figures.** They are hardcoded to the canonical URL plus a generic pitch. Putting a salary or a computed amount into a share URL would leak it into someone's chat history, and it contradicts the promise that nothing leaves the browser.
+- **Share hrefs are hardcoded in the HTML**, not built by JS, so they still work with JavaScript disabled. The X payload must stay under 280 characters counting the URL as 23 — currently 194 + 23 = 217.
 - **The print action lives inside `#output`, beside the result** — not in the footer actions. It appears only when there is something to print, and someone who has just read their payout should not have to scroll past the whole article to print it.
 - **DA presence depends on the employer, and the copy must say so.** Government, PSU, public-sector bank and unionised factory payslips carry a DA line (VDA on contract-labour slips); most private white-collar slips have none, and then Basic alone is the input. If a payslip has folded DA into Basic it must not be counted twice.
 - **The payslip example must stay internally consistent.** Basic 30,000 + DA 5,000 = the 35,000 in the callout, and the six earnings lines must sum to the 61,600 gross shown. Change one number and you must change the others.
