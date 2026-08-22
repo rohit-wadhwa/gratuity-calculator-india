@@ -24,6 +24,8 @@ A single-page, static gratuity calculator for India under the **Payment of Gratu
 | `sitemap.xml` | Single-URL sitemap for Google indexing. | Update `<lastmod>` on major changes |
 | `site.webmanifest` | PWA / mobile home-screen metadata. | Rarely |
 | `og-image.png` | 1200×630 social share image. | Regenerate via `generate-og-image.py` if design palette changes |
+| `llms.txt` | Plain-text summary for AI assistants and answer engines. Keep in step with the page when the tax rules or formula change. |
+| `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` | PWA icons, navy square with the rupee glyph, matching the favicon. Regenerate by rendering HTML through headless Chrome — there is no Pillow on this machine. |
 | `generate-og-image.py` | Python script (Pillow) that regenerates the OG image. | If palette / typography changes materially |
 | `README.md`, `LICENSE`, `CONTRIBUTING.md`, `SUPPORT.md` | Repo housekeeping. | Standard |
 
@@ -146,6 +148,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.7.0` — skip link, PWA icons, attribution, `llms.txt`
 - `2.6.0` — dark mode, `--field` token for control borders
 - `2.5.0` — DA guidance for Indian salary structures, print action moved beside the result
 - `2.4.0` — payslip guide: which line, which month
@@ -333,6 +336,13 @@ An **AI Overview** sits above all of them, absorbing clicks before any result. T
 | Aditya Birla | salary + years + lead form | no | — | no | BreadcrumbList + FAQPage | 2,599 |
 
 Razorpay's page carries the title and meta description of their payment-gateway page — *"Best Payment Gateway in India to Accept Online Payments"* — and its `<h1>` is the result value, `₹ 0`. Aditya Birla is the strongest on-page competitor: 2,599 words and 78 internal calculator links, paid for by harvesting name, email, phone and OTP before showing a result.
+
+### Attribution and AI discoverability
+
+- Authorship is stated three ways: the `author` meta tag, `author`/`creator` on the `WebApplication` schema with `sameAs` pointing at LinkedIn and GitHub, and a visible footer credit. The printed estimate carries it too.
+- LinkedIn: `https://www.linkedin.com/in/rohit-wadhwa/`, linked with `rel="me"` so the identity association is machine-readable.
+- `llms.txt` gives AI assistants a plain-text summary with the formula, the six-month rule, the tax structure and the scope boundary. **Update it whenever those change** — a stale llms.txt is worse than none, because it is written to be trusted and quoted.
+- `robots.txt` explicitly allows GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended and Applebot-Extended. Being cited in AI answers is the realistic distribution channel while the domain limits search ranking.
 
 ### Google Search Console
 

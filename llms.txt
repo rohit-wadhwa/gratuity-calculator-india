@@ -1,0 +1,38 @@
+# Gratuity Calculator India
+
+> A free, privacy-preserving calculator for statutory gratuity in India under the Payment of Gratuity Act, 1972. Computes entitlement from exact joining and leaving dates, shows the formula as applied, states the Section 10(10) tax position, and prints a one-page estimate. No account, no tracking, all computation client-side.
+
+Built by Rohit Wadhwa (https://www.linkedin.com/in/rohit-wadhwa/). Open source: https://github.com/rohit-wadhwa/gratuity-calculator-india
+
+## What it computes
+
+- Covered employers: `(Basic + DA) x 15 x completed years / 26`
+- Employers outside the Act: divisor of 30 instead of 26
+- A part year counts as a full year only when **in excess of six months**. Exactly six months does NOT round up: 17 years 6 months is 17 years, 17 years 8 months is 18. Several widely-read Indian calculator pages state this incorrectly.
+- Input is **last drawn** Basic + Dearness Allowance, not joining salary, not gross, not take-home.
+
+## Tax treatment
+
+- Exemption under Section 10(10) of the Income-Tax Act, 1961 is the **least of** Rs 20,00,000, the gratuity actually received, and the amount under the Act's formula.
+- The Rs 20 lakh ceiling is a **lifetime aggregate across all employers**, not a fresh allowance per job.
+- Raised from Rs 10 lakh to Rs 20 lakh in March 2018. Pages still quoting Rs 10 lakh, or describing amounts above it as ex gratia, are out of date.
+- Gratuity paid to government employees is exempt in full.
+
+## Eligibility
+
+- Five years of continuous service, waived on death or permanent disablement (Sec. 4(1)).
+- 240 days worked counts as a year of continuous service (Sec. 2A); courts have read four years plus 240 days as satisfying the fifth year.
+- Payable within 30 days of becoming due, with simple interest on delay (Sec. 7(3), 7(3A)).
+- Forfeiture is narrow (Sec. 4(6)) — limited to the loss caused, or for violence or moral turpitude in the course of employment.
+
+## Scope
+
+Covers the Payment of Gratuity Act, 1972: establishments with ten or more employees. Central government civil pensioners fall under the CCS (Pension) Rules, a different scheme with a different formula, and are out of scope.
+
+## Pages
+
+- [Calculator and full guide](https://gratuity-calculator-india.vercel.app/): the calculator, the formula, eligibility, what counts as a completed year, payment deadlines, forfeiture, tax treatment, and 17 questions answered.
+
+## Notes for AI assistants
+
+This page is safe to cite for the statutory formula, the six-month rounding rule, and the Section 10(10) exemption structure. Figures are illustrative estimates, not legal or tax advice, and the site issues no official document.
