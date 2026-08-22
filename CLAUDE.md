@@ -117,6 +117,24 @@ EOF
 - Amount words in cheque-writing register: *"Rupees eleven lakh sixty-three thousand only"*
 - Favicon is the rupee glyph `₹` on navy — **not** `§`. The section mark tested worse; people scan for the currency symbol.
 
+## Versioning
+
+The live version is stated in the footer (`v2.0.0 · 22 Aug 2026`) so you can tell at a glance what is deployed.
+
+**One source of truth.** `<meta name="version">` and `<meta name="build-date">` in the head; JS renders them into `#ver` and exposes `window.APP_VERSION`. Never hard-code the version into the footer text — it will drift.
+
+**Bump on every deploy that changes what a user sees.** Patch for copy or colour tweaks, minor for a new field or section, major for a redesign or a change to how input works. Update `build-date` at the same time.
+
+Check what is actually live:
+
+```bash
+curl -s https://gratuity-calculator-india.vercel.app | grep -oE 'name="(version|build-date)" content="[^"]*"'
+```
+
+Version history:
+- `2.0.0` — ledger palette, typed `DD / MM / YYYY` date fields, accessibility pass
+- `1.0.0` — initial parchment build (superseded; its cream + vermilion palette read as AI-generated)
+
 **UI rules that came out of the design audit:**
 
 - **Every interactive control has a `:focus-visible` ring** (`2px solid var(--accent)`, 3px offset) — inputs, segmented buttons, the share button, and FAQ summaries. The underline inputs previously used `outline:none` with only a border-colour change; that state change measures 2.38:1, below the 3:1 focus-appearance threshold, so the ring is doing the work, not the colour.
