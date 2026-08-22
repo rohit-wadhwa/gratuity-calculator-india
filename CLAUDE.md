@@ -138,6 +138,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.2.0` — lifetime ₹20 lakh aggregate cap, government-employee exemption, worked rounding FAQ
 - `2.1.0` — printable estimate, months added to Years mode, tax exemption stated as least-of-three
 - `2.0.1` — `§` replaced with `₹` ornament; payout reference reads `Sec. 4(2)`
 - `2.0.0` — ledger palette, typed `DD / MM / YYYY` date fields, accessibility pass
@@ -180,6 +181,8 @@ These were bugs once. Keep them fixed.
 - **Dates are assembled as LOCAL dates.** `readDate(prefix)` builds `new Date(yy,mm-1,dd)` from the three boxes. Never construct one from a `'YYYY-MM-DD'` string — that parses as UTC midnight and reads back a day early west of GMT. Same for the default last-working-day: local getters, never `toISOString().slice(0,10)`.
 - **`readDate` distinguishes `partial` from `invalid`.** A half-typed year must not flash an error mid-keystroke; only a complete-but-impossible date (32/01, Feb 30) does.
 - **Years mode takes years AND months.** Whole years alone silently under-counts: 7 years 8 months entered as `7` loses the round-up and pays a year short. Months are validated 0–11.
+- **The ₹20 lakh exemption is a LIFETIME aggregate across all employers**, not a fresh allowance per job, and gratuity to government employees is exempt in full. The calculator does not ask what was claimed before — that is a rare case and an extra field would cost every user to serve a few — so the notes state it instead.
+- **Exactly six months does NOT round up.** Section 4(2) says "in excess of six months". 17 years 6 months is 17 years; 17 years 8 months is 18. Competitor pages get this wrong — Groww's own page states 17y6m rounds to 18, which overstates the payout by a full year. Our FAQ answers this explicitly because it is the most confused rule and a live search term.
 - **The exemption is the least of three** — ₹20,00,000, the gratuity actually received, and the amount under the Act's formula. For this calculator the last two are the same figure, so the arithmetic is `min(20L, computed)`, but the wording must state all three or it is incomplete. Do not repeat the ₹10 lakh figure seen on some competitor pages; that ceiling was superseded in March 2018.
 - **The FAQPage JSON-LD is generated from the page, not hand-written.** After editing any `<details>`, rebuild it so the two cannot drift, then re-run the parity check above.
 - **The printed estimate must never look officially issued.** No reference number, no seal, no signature block. `ESTIMATE ONLY — NOT AN OFFICIAL DOCUMENT` sits inside the bordered box, not in fine print, and states it is not issued by any employer or authority. Print swaps the whole interactive page for `#summary`.
