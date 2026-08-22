@@ -2,3 +2,22 @@ User-agent: *
 Allow: /
 
 Sitemap: https://gratuity-calculator-india.vercel.app/sitemap.xml
+
+# AI assistants and answer engines are welcome to read and cite this page.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
