@@ -137,6 +137,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.5.0` — DA guidance for Indian salary structures, print action moved beside the result
 - `2.4.0` — payslip guide: which line, which month
 - `2.3.1` — SERP-targeted FAQs, debounced screen-reader status, `--neg-soft` token
 - `2.3.0` — SEO content pass: 826 → 1,855 words, 9 h2 / 5 h3, 12 FAQs, absolute canonical
@@ -190,6 +191,8 @@ These were bugs once. Keep them fixed.
 - **The FAQPage JSON-LD is generated from the page, not hand-written.** After editing any `<details>`, rebuild it so the two cannot drift, then re-run the parity check above.
 - **The result is announced to screen readers ONCE, after typing settles.** `calc()` runs on every keystroke; a live region on the certificate with `aria-atomic="true"` made a screen reader read every intermediate amount aloud. The announcement now goes to a visually-hidden `#srStatus` region debounced by 600ms. Do not put `aria-live` back on `.certificate`.
 - **The salary input means LAST DRAWN Basic + DA.** Not joining salary, not an average, not gross, not take-home. This is the single most common user error, so it is stated in the field hint, in a collapsible payslip guide under the field, in a dedicated page section, and in three FAQs. Do not soften that wording to save space.
+- **The print action lives inside `#output`, beside the result** — not in the footer actions. It appears only when there is something to print, and someone who has just read their payout should not have to scroll past the whole article to print it.
+- **DA presence depends on the employer, and the copy must say so.** Government, PSU, public-sector bank and unionised factory payslips carry a DA line (VDA on contract-labour slips); most private white-collar slips have none, and then Basic alone is the input. If a payslip has folded DA into Basic it must not be counted twice.
 - **The payslip example must stay internally consistent.** Basic 30,000 + DA 5,000 = the 35,000 in the callout, and the six earnings lines must sum to the 61,600 gross shown. Change one number and you must change the others.
 - **The printed estimate must never look officially issued.** No reference number, no seal, no signature block. `ESTIMATE ONLY — NOT AN OFFICIAL DOCUMENT` sits inside the bordered box, not in fine print, and states it is not issued by any employer or authority. Print swaps the whole interactive page for `#summary`.
 - **">6 months rounds up" counts days, not just whole months.** `cy()` returns `{full, rem, days, rounded}`; `rounded` bumps when `rem>6 || (rem===6 && days>0)`. Six months and zero days is dropped; six months and one day rounds up.
