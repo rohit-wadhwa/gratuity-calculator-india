@@ -137,6 +137,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.3.0` — SEO content pass: 826 → 1,855 words, 9 h2 / 5 h3, 12 FAQs, absolute canonical
 - `2.2.1` — ornament is a rule, not a glyph
 - `2.2.0` — lifetime ₹20 lakh aggregate cap, government-employee exemption, worked rounding FAQ
 - `2.1.0` — printable estimate, months added to Years mode, tax exemption stated as least-of-three
@@ -273,6 +274,39 @@ Update `sitemap.xml` `<lastmod>` to today's date. Optionally submit the sitemap 
 - **Skills installed via `npm install -g` are for Claude Code CLI only.** They do NOT work in the web/desktop chat interface. When user asks for "UI UX Pro Max" or similar, hand off with a specific prompt to run in Claude Code.
 
 ---
+
+## SEO
+
+**The ceiling is the domain, not the page.** The site is on `gratuity-calculator-india.vercel.app` with no custom domain. "Gratuity calculator" is a YMYL-financial head term where Google leans hardest on site authority, and the incumbents are Groww, Paytm, Razorpay and Aditya Birla Capital. On-page work cannot close that gap on a free platform subdomain. **Buying a custom domain is the highest-leverage single action available** and everything below is worth more once it exists.
+
+**Where this page can actually win** — long-tail queries where the incumbents are weak, wrong, or hostile:
+
+| Query | Why we win |
+|---|---|
+| gratuity calculator with date of joining | Nobody else takes real dates |
+| 17 years 6 months gratuity | Groww documents this incorrectly (says 18, the Act says 17) |
+| gratuity calculator without signup | Aditya Birla demands name, email, phone and OTP |
+| gratuity calculator print / statement | None of the four competitors offer print or download |
+| gratuity 4 years 240 days | Thin, hedged coverage elsewhere |
+
+**Competitor audit, Aug 2026:**
+
+| Site | Inputs | Months | Rounding | Print | JSON-LD | Words |
+|---|---|---|---|---|---|---|
+| **This page** | dates *or* years+months | yes | correct | yes | WebApplication + FAQPage + BreadcrumbList | 1,855 |
+| Groww | salary + years, sliders | no | **documented wrong** | no | — | ~1,500 |
+| Paytm | salary + years | no | — | no | — | — |
+| Razorpay | salary + years + months | yes | correct | no | **none** | 883 |
+| Aditya Birla | salary + years + lead form | no | — | no | BreadcrumbList + FAQPage | 2,599 |
+
+Razorpay's page carries the title and meta description of their payment-gateway page — *"Best Payment Gateway in India to Accept Online Payments"* — and its `<h1>` is the result value, `₹ 0`. Aditya Birla is the strongest on-page competitor: 2,599 words and 78 internal calculator links, paid for by harvesting name, email, phone and OTP before showing a result.
+
+**Rules for this page:**
+
+- **Canonical, `og:url` and `og:image` are absolute in the static HTML.** They used to be relative and rewritten by JS from `window.location`; that pointed preview deployments at themselves. Do not reintroduce the rewrite.
+- **Every claim carries its section reference** (`Sec. 4(2)`, `Sec. 7(3A)`). Accuracy is the differentiator against bigger sites — it is the one thing that does not require domain authority.
+- **Update `dateModified` in the WebApplication schema and `<lastmod>` in `sitemap.xml`** on any content change.
+- Do not chase word count with filler. The content added in 2.3.0 is statutory fact people actually search for.
 
 ## Scope boundary
 
