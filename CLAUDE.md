@@ -72,6 +72,15 @@ Ledger direction — a bank passbook / salary slip, not a designed web page.
 
 **A warning, from experience.** The first redesign moved off the cream+green+Fraunces cluster and landed on parchment `#F6F0E0` + vermilion `#B23A2F` — which is *also* an AI-default pairing (cream + terracotta), the exact one this file warns about below. Real users called it out as looking AI-generated. If a palette proposal is warm cream, beige, or parchment paired with a rust/terracotta/vermilion accent, reject it and pick a different ground.
 
+**Dark mode** is automatic via `prefers-color-scheme`, implemented as a token swap only — no layout, type or component changes. There is deliberately no manual toggle: it would need persisted state for a preference the OS already expresses.
+
+- Dark ground `#0F1622`, card `#161F2E`, panel `#131B29`, ink `#E9EDF3`, accent `#5CBF97`, negative `#EE8879`, gold `#DDBB6A`.
+- **Print always forces the light tokens.** A dark stylesheet wastes ink and reads badly on paper.
+- `theme-color` has a per-scheme variant so the browser chrome follows.
+- **Every pair was measured in both themes — 18/18 live checks pass.** Verify a dark change by rendering a copy with the dark `:root` promoted to default; injecting `:root` overrides at runtime gives stale computed values on form controls and will lie to you.
+
+**`--field` vs `--rule-soft`:** control and input borders use `--field`, held at ≥3:1. Decorative separators use `--rule-soft` and stay faint. They were one token, which left the date boxes outlined at **1.41:1** in light mode. Do not merge them again.
+
 **Palette:**
 - Ground: `#ECEFF3` (cool ledger grey-blue)
 - Card: `#FFFFFF` (input panel)
@@ -137,6 +146,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.6.0` — dark mode, `--field` token for control borders
 - `2.5.0` — DA guidance for Indian salary structures, print action moved beside the result
 - `2.4.0` — payslip guide: which line, which month
 - `2.3.1` — SERP-targeted FAQs, debounced screen-reader status, `--neg-soft` token
