@@ -111,7 +111,8 @@ EOF
 **Signature elements:**
 - Header cites the actual Act: `§ PAYMENT OF GRATUITY ACT, 1972 • SEC. 4 • REPUBLIC OF INDIA`
 - Result panel styled as a "certificate" — double top rule, `Estimated payout / § 4(2)` label
-- Section marks (§) throughout because gratuity IS Act-section structured
+- Rupee marks (₹) as the ornament before the header citation and section headings, matching the favicon. **Do not use `§`** — it is US/German legal convention; Indian Acts and judgments write "Section 4" or "Sec. 4". The payout reference reads `Sec. 4(2)`.
+- The ornament is set in IBM Plex Sans, not Playfair, so `₹` (U+20B9) is certain to render.
 - Underline-only inputs for the salary field; **boxed `DD / MM / YYYY` inputs for dates** (feels like filling a form)
 - BMC button labeled **"Buy me a chai"** (India, not SF)
 - Amount words in cheque-writing register: *"Rupees eleven lakh sixty-three thousand only"*
@@ -137,6 +138,9 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.2.0` — lifetime ₹20 lakh aggregate cap, government-employee exemption, worked rounding FAQ
+- `2.1.0` — printable estimate, months added to Years mode, tax exemption stated as least-of-three
+- `2.0.1` — `§` replaced with `₹` ornament; payout reference reads `Sec. 4(2)`
 - `2.0.0` — ledger palette, typed `DD / MM / YYYY` date fields, accessibility pass
 - `1.0.0` — initial parchment build (superseded; its cream + vermilion palette read as AI-generated)
 
@@ -176,6 +180,12 @@ These were bugs once. Keep them fixed.
 - **No native `<input type="date">`.** It was removed for a reason: Chrome's picker opens on the current month and the year list is a cramped scroll strip, so reaching a 2005 joining date took ~20 scroll steps. Real users could not find their year. Dates are now three typed boxes (`dojD`/`dojM`/`dojY`, `exitD`/`exitM`/`exitY`) — digits only, auto-advance on fill, backspace steps back. Do not reintroduce a date picker.
 - **Dates are assembled as LOCAL dates.** `readDate(prefix)` builds `new Date(yy,mm-1,dd)` from the three boxes. Never construct one from a `'YYYY-MM-DD'` string — that parses as UTC midnight and reads back a day early west of GMT. Same for the default last-working-day: local getters, never `toISOString().slice(0,10)`.
 - **`readDate` distinguishes `partial` from `invalid`.** A half-typed year must not flash an error mid-keystroke; only a complete-but-impossible date (32/01, Feb 30) does.
+- **Years mode takes years AND months.** Whole years alone silently under-counts: 7 years 8 months entered as `7` loses the round-up and pays a year short. Months are validated 0–11.
+- **The ₹20 lakh exemption is a LIFETIME aggregate across all employers**, not a fresh allowance per job, and gratuity to government employees is exempt in full. The calculator does not ask what was claimed before — that is a rare case and an extra field would cost every user to serve a few — so the notes state it instead.
+- **Exactly six months does NOT round up.** Section 4(2) says "in excess of six months". 17 years 6 months is 17 years; 17 years 8 months is 18. Competitor pages get this wrong — Groww's own page states 17y6m rounds to 18, which overstates the payout by a full year. Our FAQ answers this explicitly because it is the most confused rule and a live search term.
+- **The exemption is the least of three** — ₹20,00,000, the gratuity actually received, and the amount under the Act's formula. For this calculator the last two are the same figure, so the arithmetic is `min(20L, computed)`, but the wording must state all three or it is incomplete. Do not repeat the ₹10 lakh figure seen on some competitor pages; that ceiling was superseded in March 2018.
+- **The FAQPage JSON-LD is generated from the page, not hand-written.** After editing any `<details>`, rebuild it so the two cannot drift, then re-run the parity check above.
+- **The printed estimate must never look officially issued.** No reference number, no seal, no signature block. `ESTIMATE ONLY — NOT AN OFFICIAL DOCUMENT` sits inside the bordered box, not in fine print, and states it is not issued by any employer or authority. Print swaps the whole interactive page for `#summary`.
 - **">6 months rounds up" counts days, not just whole months.** `cy()` returns `{full, rem, days, rounded}`; `rounded` bumps when `rem>6 || (rem===6 && days>0)`. Six months and zero days is dropped; six months and one day rounds up.
 - **FAQPage JSON-LD must mirror the on-page `<details>` questions exactly** — same count, same wording. Google requires FAQ rich-result content to be visible on the page. Verify with:
   ```bash
@@ -263,6 +273,12 @@ Update `sitemap.xml` `<lastmod>` to today's date. Optionally submit the sitemap 
 - **Skills installed via `npm install -g` are for Claude Code CLI only.** They do NOT work in the web/desktop chat interface. When user asks for "UI UX Pro Max" or similar, hand off with a specific prompt to run in Claude Code.
 
 ---
+
+## Scope boundary
+
+This calculator implements the **Payment of Gratuity Act, 1972** — private sector and establishments with ten or more employees.
+
+Central government civil pensioners fall under the **CCS (Pension) Rules**, where retirement gratuity is computed from six-monthly periods of qualifying service, distinguishes retirement/death/service gratuity, and is capped differently. That is a different scheme with a different formula. The FAQ says so and points people to the government portal. Do not attempt to compute it here.
 
 ## Out of scope
 
