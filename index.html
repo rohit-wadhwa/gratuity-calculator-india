@@ -7,6 +7,8 @@
 <meta name="description" content="Free online gratuity calculator for India. Instantly estimate your gratuity from Basic + DA and years of service under the Payment of Gratuity Act, 1972. Mobile-friendly, 100% private — nothing is stored or sent.">
 <meta name="keywords" content="gratuity calculator, gratuity calculator india, gratuity calculation formula, payment of gratuity act 1972, gratuity eligibility 5 years, gratuity tax exemption, how to calculate gratuity, gratuity amount calculator 2026, gratuity 15 26 formula, gratuity tax free 20 lakh">
 <meta name="author" content="Gratuity Calculator">
+<meta name="version" content="2.0.0">
+<meta name="build-date" content="2026-08-22">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#ECEFF3">
 <meta name="format-detection" content="telephone=no">
@@ -137,6 +139,7 @@ input:focus-visible,.dbox:focus-visible,.seg button:focus-visible,.btn:focus-vis
 .btn svg{flex-shrink:0}
 .foot{text-align:left;margin-top:32px;font-size:11.5px;color:var(--ink-3);line-height:1.6;padding-bottom:16px;font-family:'IBM Plex Mono',monospace;letter-spacing:.02em}
 .foot .fs{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:var(--ink-2);letter-spacing:0;line-height:1.5;display:block;margin-top:6px}
+.foot .ver{display:block;margin-top:10px;font-size:10.5px;color:var(--ink-4);letter-spacing:.1em}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 header,.card,.notes,.faq,.actions{animation:rise .5s cubic-bezier(.2,.8,.2,1) both}
@@ -238,7 +241,7 @@ header,.card,.notes,.faq,.actions{animation:rise .5s cubic-bezier(.2,.8,.2,1) bo
 <button class="btn dark" id="copyBtn" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Share this calculator</span></button>
 <a class="btn chai" href="https://buymeacoffee.com/rohit.wadhwa" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg><span>Buy me a chai</span></a>
 </div>
-<div class="foot">ILLUSTRATIVE — NOT LEGAL OR TAX ADVICE.<span class="fs">Verify your exact entitlement with HR or a qualified advisor. Rules and exemption ceilings change; this page reflects the position current at build time.</span></div>
+<div class="foot">ILLUSTRATIVE — NOT LEGAL OR TAX ADVICE.<span class="fs">Verify your exact entitlement with HR or a qualified advisor. Rules and exemption ceilings change; this page reflects the position current at build time.</span><span class="ver" id="ver"></span></div>
 </div>
 <script>
 (function(){
@@ -341,6 +344,11 @@ $('copyBtn').addEventListener('click',function(){
   else fallback()
 });
 try{var u=window.location.origin+window.location.pathname;var c=document.querySelector('link[rel=canonical]');if(c)c.href=u;var og=document.querySelector('meta[property="og:url"]');if(og)og.setAttribute('content',u);else{var m=document.createElement('meta');m.setAttribute('property','og:url');m.setAttribute('content',u);document.head.appendChild(m)}}catch(e){}
+(function(){var mv=document.querySelector('meta[name=version]'),mb=document.querySelector('meta[name="build-date"]'),el=$('ver');
+if(!mv||!el)return;var v='v'+mv.content;
+if(mb&&mb.content){var d=/^(\d{4})-(\d{2})-(\d{2})$/.exec(mb.content);
+if(d){var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];v+=' \u00B7 '+(+d[3])+' '+M[+d[2]-1]+' '+d[1]}}
+el.textContent=v;window.APP_VERSION=mv.content})();
 calc();
 })();
 </script>
