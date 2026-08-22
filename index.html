@@ -32,7 +32,7 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"Gratuity Calculator India","applicationCategory":"FinanceApplication","operatingSystem":"Any","description":"Free online gratuity calculator for India under the Payment of Gratuity Act, 1972.","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"inLanguage":"en-IN"}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"After how many years is gratuity payable?","acceptedAnswer":{"@type":"Answer","text":"After five completed years of continuous service. The minimum is waived in cases of death or permanent disability, and courts have upheld four years and 240 days as sufficient to count the fifth year."}},{"@type":"Question","name":"How much is tax-free?","acceptedAnswer":{"@type":"Answer","text":"Up to Rs 20 lakh under Section 10(10) of the Income-Tax Act, 1961. Any amount beyond that is taxable at your applicable slab rate as salary income."}},{"@type":"Question","name":"Which salary components are used?","acceptedAnswer":{"@type":"Answer","text":"Only Basic pay plus Dearness Allowance. HRA, special allowance, bonus, LTA and similar components do not enter the gratuity base."}},{"@type":"Question","name":"What is 15/26?","acceptedAnswer":{"@type":"Answer","text":"Fifteen days of wages are credited per completed year of service. Twenty-six is the working-day divisor (thirty calendar days less four weekly offs). Together they mean annual gratuity is roughly 15/26 of one month's Basic + DA."}},{"@type":"Question","name":"What about fixed-term employees?","acceptedAnswer":{"@type":"Answer","text":"Under the Code on Social Security, 2020 (in force from November 2025), fixed-term employees qualify after just one year of service. Regular employees still fall under the five-year rule."}},{"@type":"Question","name":"Is anything I enter recorded?","acceptedAnswer":{"@type":"Answer","text":"No. Every calculation runs in your browser. There is no server, no database, no cookies tracking inputs, and no analytics reading form fields. If you close the tab, the numbers disappear with it."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"After how many years is gratuity payable?","acceptedAnswer":{"@type":"Answer","text":"After five completed years of continuous service. The minimum is waived in cases of death or permanent disability, and courts have upheld four years and 240 days as sufficient to count the fifth year."}},{"@type":"Question","name":"How much is tax-free?","acceptedAnswer":{"@type":"Answer","text":"The exemption under Section 10(10) of the Income-Tax Act, 1961 is the least of three figures: Rs 20 lakh, the gratuity you actually received, and the amount worked out under the Act's formula. Whatever exceeds that is taxable at your applicable slab rate as salary income. The Rs 20 lakh ceiling has applied since March 2018, when it replaced the earlier Rs 10 lakh limit."}},{"@type":"Question","name":"Which salary components are used?","acceptedAnswer":{"@type":"Answer","text":"Only Basic pay plus Dearness Allowance. HRA, special allowance, bonus, LTA and similar components do not enter the gratuity base."}},{"@type":"Question","name":"What is 15/26?","acceptedAnswer":{"@type":"Answer","text":"Fifteen days of wages are credited per completed year of service. Twenty-six is the working-day divisor (thirty calendar days less four weekly offs). Together they mean annual gratuity is roughly 15/26 of one month's Basic + DA."}},{"@type":"Question","name":"Does this cover central government employees?","acceptedAnswer":{"@type":"Answer","text":"No. This calculator applies the Payment of Gratuity Act, 1972, which covers establishments with ten or more employees. Central government civil pensioners fall under the CCS (Pension) Rules, where retirement gratuity is worked out from six-monthly periods of qualifying service and capped differently. Use the government pensioners' portal for that."}},{"@type":"Question","name":"What about fixed-term employees?","acceptedAnswer":{"@type":"Answer","text":"Under the Code on Social Security, 2020 (in force from November 2025), fixed-term employees qualify after just one year of service. Regular employees still fall under the five-year rule."}},{"@type":"Question","name":"Is anything I enter recorded?","acceptedAnswer":{"@type":"Answer","text":"No. Every calculation runs in your browser. There is no server, no database, no cookies tracking inputs, and no analytics reading form fields. If you close the tab, the numbers disappear with it."}}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"/"},{"@type":"ListItem","position":2,"name":"Gratuity Calculator","item":"/"}]}
@@ -84,6 +84,7 @@ input:focus-visible,.dbox:focus-visible,.seg button:focus-visible,.btn:focus-vis
 .dbox::placeholder{color:var(--ink-4);letter-spacing:.1em;font-size:14px}
 .dbox:focus{outline:none;border-color:var(--accent);background:var(--accent-soft)}
 .dsep{font-family:'IBM Plex Mono',monospace;color:var(--ink-4);font-size:16px}
+.dategrp .dsep{min-width:26px}
 .warn{margin-top:12px;font-size:12.5px;color:var(--neg);font-family:'IBM Plex Sans',sans-serif;border-left:2px solid var(--neg);background:#F7E4E1;padding:8px 12px}
 .mode-block{display:none}
 .mode-block.show{display:block;animation:fade .3s ease both}
@@ -135,6 +136,22 @@ input:focus-visible,.dbox:focus-visible,.seg button:focus-visible,.btn:focus-vis
 .btn.chai{background:var(--accent);color:var(--card);border-color:var(--accent)}
 .btn.chai:hover{background:var(--accent-2);border-color:var(--accent-2)}
 .btn svg{flex-shrink:0}
+.btn.line{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn.line:hover{background:var(--card);border-color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:disabled:hover{background:transparent;border-color:var(--rule-soft)}
+.summary{display:none}
+.sum-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:20px;flex-wrap:wrap}
+.sum-title{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;letter-spacing:.14em}
+.sum-date{font-family:'IBM Plex Mono',monospace;font-size:11px}
+.sum-sec{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin:18px 0 6px;padding-bottom:4px;border-bottom:1px solid #000}
+.sum-rows>div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:5px 0;border-bottom:1px dotted #999;font-size:12.5px}
+.sum-rows dt{color:#333}
+.sum-rows dd{font-family:'IBM Plex Mono',monospace;font-weight:600;text-align:right;white-space:nowrap}
+.sum-words{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;margin-top:10px}
+.sum-note{font-size:11px;color:#333;margin-top:8px;line-height:1.5}
+.sum-disc{margin-top:20px;border:1px solid #000;padding:10px 12px;font-size:11px;line-height:1.55}
+.sum-url{margin-top:14px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:#333}
 .foot{text-align:left;margin-top:32px;font-size:11.5px;color:var(--ink-3);line-height:1.6;padding-bottom:16px;font-family:'IBM Plex Mono',monospace;letter-spacing:.02em}
 .foot .fs{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:var(--ink-2);letter-spacing:0;line-height:1.5;display:block;margin-top:6px}
 .foot .ver{display:block;margin-top:10px;font-size:10.5px;color:var(--ink-4);letter-spacing:.1em}
@@ -150,7 +167,7 @@ header,.card,.notes,.faq,.actions{animation:rise .5s cubic-bezier(.2,.8,.2,1) bo
 @media(max-width:760px){.grid{grid-template-columns:1fr}.panel.inputs{border-right:none;border-bottom:1px solid var(--rule)}.has-result .panel.result{order:-1;border-bottom:1px solid var(--rule)}.has-result .panel.inputs{border-bottom:none}}
 @media(max-width:440px){body{padding:18px 16px}header{margin-bottom:24px}.panel{padding:22px 20px}.amount{font-size:clamp(32px,11vw,44px)}.seg button{font-size:11.5px;padding:12px 6px}.dbox.d2{width:56px}.dbox.d4{width:82px}.dparts{gap:6px}.actions .btn{flex:1;justify-content:center;padding:12px 14px}.cite{font-size:10px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media print{body{padding:0;background:#fff}.actions,.faq,.privacy{display:none}.page{max-width:none}.grid{grid-template-columns:1fr 1fr}.panel.result{background:#fff}header,.card,.notes{animation:none}.card{border-color:#000}a[href]::after{content:""}}
+@media print{body{padding:0;background:#fff;color:#000}header,.card,.notes,.faq,.actions,.foot,noscript{display:none!important}.summary{display:block}.page{max-width:none}a[href]::after{content:""}@page{margin:16mm}}
 </style>
 </head>
 <body>
@@ -187,7 +204,12 @@ header,.card,.notes,.faq,.actions{animation:rise .5s cubic-bezier(.2,.8,.2,1) bo
 <div class="warn" id="dateErr" role="alert" hidden></div>
 </div>
 <div class="mode-block" id="block-years">
-<div class="field"><label for="years">Completed years of service</label><input type="number" id="years" inputmode="numeric" placeholder="10" min="0" step="1" aria-label="Completed years of service"><div class="hint">Over six months in the final year rounds up. Six or fewer is dropped.</div></div>
+<fieldset class="field dategrp">
+<legend>Length of service</legend>
+<div class="dparts"><input class="dbox d2" type="text" id="years" inputmode="numeric" maxlength="2" placeholder="YY" autocomplete="off" aria-label="Completed years of service"><span class="dsep" aria-hidden="true">yrs</span><input class="dbox d2" type="text" id="months" inputmode="numeric" maxlength="2" placeholder="MM" autocomplete="off" aria-label="Additional completed months of service"><span class="dsep" aria-hidden="true">mo</span></div>
+<div class="hint">Months are optional. Over six months in the final year rounds up; six or fewer is dropped.</div>
+<div class="warn" id="yearsErr" role="alert" hidden>Months must be between 0 and 11 — put whole years in the first box.</div>
+</fieldset>
 </div>
 <div class="field">
 <label>Employer coverage</label>
@@ -222,29 +244,57 @@ header,.card,.notes,.faq,.actions{animation:rise .5s cubic-bezier(.2,.8,.2,1) bo
 <li>For employers covered under the Act: <span class="formula">(Basic + DA) × 15 × completed years ÷ 26</span>. Uncovered employers use a divisor of 30.</li>
 <li><strong>Completed years</strong> only. A final partial year over six months rounds up; six months or less is dropped.</li>
 <li>The amount is computed on your <strong>last drawn</strong> Basic + DA — applied across the entire tenure, not the salary of each year.</li>
-<li>Up to <strong>₹20 lakh</strong> is exempt under Section 10(10) of the Income-Tax Act. Anything above is taxable at your slab rate.</li>
+<li>The exemption under Section 10(10) is the <strong>least of</strong> ₹20 lakh, the gratuity actually received, and the amount computed under the Act's formula. Anything above that is taxable at your slab rate.</li>
 <li>The five-year minimum is <strong>waived</strong> on death or permanent disability. Some employers honour the four-years-and-240-days rule as the fifth year.</li>
 </ul>
 </section>
 <section class="faq" aria-label="Frequently asked questions">
 <h2>Questions worth answering</h2>
 <details><summary>After how many years is gratuity payable?</summary><div class="ans">After five completed years of continuous service. The minimum is waived in cases of death or permanent disability, and courts have upheld four years and 240 days as sufficient to count the fifth year.</div></details>
-<details><summary>How much is tax-free?</summary><div class="ans">Up to ₹20 lakh under Section 10(10) of the Income-Tax Act, 1961. Any amount beyond that is taxable at your applicable slab rate as salary income.</div></details>
+<details><summary>How much is tax-free?</summary><div class="ans">The exemption under Section 10(10) of the Income-Tax Act, 1961 is the least of three figures: ₹20 lakh, the gratuity you actually received, and the amount worked out under the Act's formula. Whatever exceeds that is taxable at your applicable slab rate as salary income. The ₹20 lakh ceiling has applied since March 2018, when it replaced the earlier ₹10 lakh limit.</div></details>
 <details><summary>Which salary components are used?</summary><div class="ans">Only Basic pay plus Dearness Allowance. HRA, special allowance, bonus, LTA and similar components do not enter the gratuity base.</div></details>
 <details><summary>What is 15/26?</summary><div class="ans">Fifteen days of wages are credited per completed year of service. Twenty-six is the working-day divisor (thirty calendar days less four weekly offs). Together they mean annual gratuity is roughly 15/26 of one month's Basic + DA.</div></details>
+<details><summary>Does this cover central government employees?</summary><div class="ans">No. This calculator applies the Payment of Gratuity Act, 1972, which covers establishments with ten or more employees. Central government civil pensioners fall under the CCS (Pension) Rules, where retirement gratuity is worked out from six-monthly periods of qualifying service and capped differently. Use the government pensioners' portal for that.</div></details>
 <details><summary>What about fixed-term employees?</summary><div class="ans">Under the Code on Social Security, 2020 (in force from November 2025), fixed-term employees qualify after just one year of service. Regular employees still fall under the five-year rule.</div></details>
 <details><summary>Is anything I enter recorded?</summary><div class="ans">No. Every calculation runs in your browser. There is no server, no database, no cookies tracking inputs, and no analytics reading form fields. If you close the tab, the numbers disappear with it.</div></details>
 </section>
 <div class="actions">
 <button class="btn dark" id="copyBtn" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Share this calculator</span></button>
+<button class="btn line" id="printBtn" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg><span>Print estimate</span></button>
 <a class="btn chai" href="https://buymeacoffee.com/rohit.wadhwa" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg><span>Buy me a chai</span></a>
 </div>
+<section class="summary" id="summary" aria-hidden="true">
+<div class="sum-head"><span class="sum-title">GRATUITY ESTIMATE</span><span class="sum-date" id="sumDate"></span></div>
+<div class="sum-sec">Particulars</div>
+<dl class="sum-rows">
+<div><dt>Monthly Basic + DA</dt><dd id="sumBasic"></dd></div>
+<div><dt>Period of service</dt><dd id="sumPeriod"></dd></div>
+<div><dt>Completed years applied</dt><dd id="sumYears"></dd></div>
+<div><dt>Employer coverage</dt><dd id="sumCov"></dd></div>
+</dl>
+<div class="sum-sec">Computation</div>
+<dl class="sum-rows">
+<div><dt>Daily wage (Basic &divide; divisor)</dt><dd id="sumDaily"></dd></div>
+<div><dt>Days credited (15 per completed year)</dt><dd id="sumDays"></dd></div>
+<div><dt id="sumFormula"></dt><dd id="sumAmount"></dd></div>
+</dl>
+<p class="sum-words" id="sumWords"></p>
+<div class="sum-sec">Tax treatment</div>
+<dl class="sum-rows">
+<div><dt>Exempt under Section 10(10)</dt><dd id="sumExempt"></dd></div>
+<div><dt>Taxable as salary income</dt><dd id="sumTaxable"></dd></div>
+<div><dt>Status</dt><dd id="sumStatus"></dd></div>
+</dl>
+<p class="sum-note">The exemption is the least of &#8377;20,00,000, the gratuity actually received, and the amount computed under the Act&rsquo;s formula.</p>
+<div class="sum-disc"><strong>ESTIMATE ONLY &mdash; NOT AN OFFICIAL DOCUMENT.</strong> Not issued by any employer or authority, and not legal or tax advice. Figures are indicative. Verify your entitlement with HR or a qualified advisor.</div>
+<div class="sum-url">gratuity-calculator-india.vercel.app</div>
+</section>
 <div class="foot">ILLUSTRATIVE — NOT LEGAL OR TAX ADVICE.<span class="fs">Verify your exact entitlement with HR or a qualified advisor. Rules and exemption ceilings change; this page reflects the position current at build time.</span><span class="ver" id="ver"></span></div>
 </div>
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
-var APP_VERSION='2.0.1';                          // bump on each deploy to identify the running version
+var APP_VERSION='2.1.0';                          // bump on each deploy to identify the running version
 var BUILD_DATE='2026-08-22';
 var CAP=2000000,mode='dates',cov=26;
 var ONES=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
@@ -281,7 +331,7 @@ function cy(doj,exit){
   var up=rem>6||(rem===6&&d>0);
   return {full:full,rem:rem,days:d,rounded:up?full+1:full}}
 function calc(){
-var basic=parseFloat($('basic').value),full=null,rem=null,days=0,used=null,err='';
+var basic=parseFloat($('basic').value),full=null,rem=null,days=0,used=null,err='',yerr='';
 if(mode==='dates'){
   var A=readDate('doj'),B=readDate('exit');
   if(A.state==='invalid'||B.state==='invalid')err='Check the date \u2014 that day does not exist.';
@@ -291,11 +341,15 @@ if(mode==='dates'){
     if(c){full=c.full;rem=c.rem;days=c.days;used=c.rounded}
   }
 }else{
-  var y=parseInt($('years').value,10);
-  if(!isNaN(y)&&y>=0){full=y;rem=0;used=y}
+  var y=parseInt($('years').value,10),mo=parseInt($('months').value,10);
+  if(isNaN(mo))mo=0;
+  if(mo>11)yerr='Months must be between 0 and 11 — put whole years in the first box.';
+  if(!isNaN(y)&&y>=0&&mo>=0&&mo<=11){full=y;rem=mo;days=0;used=mo>6?y+1:y}
 }
 var de=$('dateErr');de.textContent=err;de.hidden=!(mode==='dates'&&err);
-if(isNaN(basic)||basic<=0||used===null){$('empty').style.display='flex';$('output').style.display='none';document.body.classList.remove('has-result');return}
+var ye=$('yearsErr');ye.textContent=yerr;ye.hidden=!(mode==='years'&&yerr);
+if(isNaN(basic)||basic<=0||used===null){$('empty').style.display='flex';$('output').style.display='none';document.body.classList.remove('has-result');$('printBtn').disabled=true;return}
+$('printBtn').disabled=false;
 $('empty').style.display='none';$('output').style.display='block';document.body.classList.add('has-result');
 var elig=full>=5,g=basic*15*used/cov,daily=basic/cov,dcr=15*used;
 var e=$('elig');
@@ -308,14 +362,40 @@ var aux='';
 if(used>full)aux='<span class="aux">rounded up</span>';
 else if(rem>0||days>0)aux='<span class="aux">'+rem+' mo dropped</span>';
 $('yrsUsed').innerHTML=used+' yr'+(used!==1?'s':'')+aux;
+fillSummary(basic,full,rem,used,g,daily,dcr,elig);
 var t=$('tax');
 if(g<=CAP){t.className='tax free';t.innerHTML='<strong>Fully tax-free.</strong> Below the \u20B920 lakh exemption under Section 10(10). Headroom remaining \u2014 '+inr(CAP-g)+'.'}
 else{t.className='tax partial';t.innerHTML='<strong>Partially taxable.</strong> '+inr(CAP)+' exempt; '+inr(g-CAP)+' taxable as salary income at your slab.'}
 }
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function longDate(d){return d.getDate()+' '+MON[d.getMonth()]+' '+d.getFullYear()}
+function dparts(pre){return $(pre+'D').value+'/'+$(pre+'M').value+'/'+$(pre+'Y').value}
+function set(id,v){$(id).textContent=v}
+function fillSummary(basic,full,rem,used,g,daily,dcr,elig){
+  set('sumDate',longDate(new Date()));
+  set('sumBasic',inr(basic));
+  if(mode==='dates')set('sumPeriod',dparts('doj')+' \u2014 '+dparts('exit'));
+  else set('sumPeriod',full+' yr'+(full!==1?'s':'')+(rem?' '+rem+' mo':'')+' (entered directly)');
+  set('sumYears',used+' yr'+(used!==1?'s':'')+(elig?'':'  \u2014 below the 5-year minimum'));
+  set('sumCov',(cov===26?'Covered by the Act':'Not covered')+'  \u00F7 '+cov);
+  set('sumDaily',inr(daily));
+  set('sumDays',dcr+' days');
+  set('sumFormula','('+inr(basic).replace('\u20B9','')+' \u00D7 15 \u00D7 '+used+') \u00F7 '+cov);
+  set('sumAmount',inr(g));
+  set('sumWords',elig?('Rupees '+words(g)+' only'):'Shown for reference \u2014 gratuity is payable only after five completed years of service.');
+  var ex=Math.min(g,CAP);
+  set('sumExempt',inr(ex));
+  set('sumTaxable',inr(Math.max(0,g-CAP)));
+  set('sumStatus',g<=CAP?'FULLY EXEMPT':'PARTIALLY TAXABLE');
+}
 function press(seg,btn){Array.prototype.forEach.call(seg.children,function(x){var on=x===btn;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')})}
 $('modeSeg').addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;mode=b.dataset.mode;press($('modeSeg'),b);$('block-dates').classList.toggle('show',mode==='dates');$('block-years').classList.toggle('show',mode==='years');calc()});
 $('covSeg').addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;cov=parseInt(b.dataset.cov,10);press($('covSeg'),b);calc()});
-['basic','years'].forEach(function(id){$(id).addEventListener('input',calc);$(id).addEventListener('change',calc)});
+$('basic').addEventListener('input',calc);$('basic').addEventListener('change',calc);
+['years','months'].forEach(function(id){var el=$(id);
+  el.addEventListener('input',function(){var v=el.value.replace(/\D/g,'').slice(0,2);if(v!==el.value)el.value=v;calc()});
+  el.addEventListener('focus',function(){el.select()});
+  el.addEventListener('change',calc)});
 // Typed date parts: digits only, advance when a box fills, backspace steps back.
 var SEQ=['dojD','dojM','dojY','exitD','exitM','exitY'];
 SEQ.forEach(function(id,i){
@@ -333,6 +413,7 @@ SEQ.forEach(function(id,i){
   el.addEventListener('change',calc);
 });
 (function(){var t=new Date();$('exitD').value=pad2(t.getDate());$('exitM').value=pad2(t.getMonth()+1);$('exitY').value=String(t.getFullYear())})();
+$('printBtn').addEventListener('click',function(){window.print()});
 $('copyBtn').addEventListener('click',function(){
   var s=$('copyBtn').querySelector('span'),o=s.textContent;
   var done=function(msg){s.textContent=msg;setTimeout(function(){s.textContent=o},1600)};
