@@ -111,8 +111,7 @@ EOF
 **Signature elements:**
 - Header cites the actual Act: `§ PAYMENT OF GRATUITY ACT, 1972 • SEC. 4 • REPUBLIC OF INDIA`
 - Result panel styled as a "certificate" — double top rule, `Estimated payout / § 4(2)` label
-- Rupee marks (₹) as the ornament before the header citation and section headings, matching the favicon. **Do not use `§`** — it is US/German legal convention; Indian Acts and judgments write "Section 4" or "Sec. 4". The payout reference reads `Sec. 4(2)`.
-- The ornament is set in IBM Plex Sans, not Playfair, so `₹` (U+20B9) is certain to render.
+- **The ornament is a short accent rule, not a character** — 18×2px in `--accent`, the same language as the `— YOUR PARTICULARS` eyebrow. Both `§` and `₹` were tried and rejected: `§` is US/German legal convention (Indian Acts write "Section 4" or "Sec. 4") and reads as a glyph people don't recognise, while `₹` competed with the real rupee signs on the amounts. A rule needs no font coverage and carries no wrong meaning. The payout reference reads `Sec. 4(2)` in words.
 - Underline-only inputs for the salary field; **boxed `DD / MM / YYYY` inputs for dates** (feels like filling a form)
 - BMC button labeled **"Buy me a chai"** (India, not SF)
 - Amount words in cheque-writing register: *"Rupees eleven lakh sixty-three thousand only"*
@@ -138,6 +137,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.2.1` — ornament is a rule, not a glyph
 - `2.2.0` — lifetime ₹20 lakh aggregate cap, government-employee exemption, worked rounding FAQ
 - `2.1.0` — printable estimate, months added to Years mode, tax exemption stated as least-of-three
 - `2.0.1` — `§` replaced with `₹` ornament; payout reference reads `Sec. 4(2)`

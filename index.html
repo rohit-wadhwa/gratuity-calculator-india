@@ -45,7 +45,7 @@ body{font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif;background:v
 .page{max-width:900px;margin:0 auto;position:relative;z-index:1}
 header{margin-bottom:36px;position:relative}
 .cite{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:var(--ink-3);letter-spacing:.08em;display:flex;align-items:baseline;gap:10px;margin-bottom:22px;padding-bottom:14px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
-.cite .mark{font-family:'IBM Plex Sans',sans-serif;font-size:15px;color:var(--accent);font-weight:600;line-height:1;position:relative;top:1px}
+.cite .mark{width:18px;height:2px;background:var(--accent);flex:0 0 auto;align-self:center}
 .cite .sep{color:var(--ink-4)}
 h1{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(42px,8vw,78px);line-height:.95;letter-spacing:-.02em;color:var(--ink)}
 h1 .and{font-style:italic;font-weight:400;color:var(--accent);letter-spacing:-.01em}
@@ -114,7 +114,7 @@ input:focus-visible,.dbox:focus-visible,.seg button:focus-visible,.btn:focus-vis
 .privacy svg{flex-shrink:0;margin-top:2px}
 .notes{margin-top:36px}
 .notes-head{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-.notes-head::before{content:"₹";font-family:'IBM Plex Sans',sans-serif;font-size:15px;color:var(--accent);font-weight:600;line-height:0;position:relative;top:1px}
+.notes-head::before{content:"";width:18px;height:2px;background:var(--accent);flex:0 0 auto}
 .notes h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:600;margin-bottom:20px;color:var(--ink);letter-spacing:-.01em}
 .notes ul{list-style:none;display:grid;gap:12px}
 .notes li{font-size:14px;max-width:68ch;color:var(--ink-2);padding-left:24px;position:relative;line-height:1.6}
@@ -173,7 +173,7 @@ header,.card,.notes,.faq,.actions{animation:rise .5s cubic-bezier(.2,.8,.2,1) bo
 <body>
 <div class="page">
 <header>
-<div class="cite"><span class="mark">₹</span><span>PAYMENT OF GRATUITY ACT, 1972</span><span class="sep">•</span><span>SEC. 4</span><span class="sep">•</span><span>REPUBLIC OF INDIA</span></div>
+<div class="cite"><span class="mark" aria-hidden="true"></span><span>PAYMENT OF GRATUITY ACT, 1972</span><span class="sep">•</span><span>SEC. 4</span><span class="sep">•</span><span>REPUBLIC OF INDIA</span></div>
 <h1>Gratuity, <span class="and">estimated.</span></h1>
 <p class="sub">A plain calculator for what you're owed under Section 4 of the Payment of Gratuity Act. Enter your <strong>Basic + DA</strong> and length of service. The formula, the eligibility, and the tax treatment are all shown alongside the number.</p>
 </header>
@@ -297,7 +297,7 @@ header,.card,.notes,.faq,.actions{animation:rise .5s cubic-bezier(.2,.8,.2,1) bo
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
-var APP_VERSION='2.2.0';                          // bump on each deploy to identify the running version
+var APP_VERSION='2.2.1';                          // bump on each deploy to identify the running version
 var BUILD_DATE='2026-08-22';
 var CAP=2000000,mode='dates',cov=26;
 var ONES=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
