@@ -111,7 +111,8 @@ EOF
 **Signature elements:**
 - Header cites the actual Act: `§ PAYMENT OF GRATUITY ACT, 1972 • SEC. 4 • REPUBLIC OF INDIA`
 - Result panel styled as a "certificate" — double top rule, `Estimated payout / § 4(2)` label
-- Section marks (§) throughout because gratuity IS Act-section structured
+- Rupee marks (₹) as the ornament before the header citation and section headings, matching the favicon. **Do not use `§`** — it is US/German legal convention; Indian Acts and judgments write "Section 4" or "Sec. 4". The payout reference reads `Sec. 4(2)`.
+- The ornament is set in IBM Plex Sans, not Playfair, so `₹` (U+20B9) is certain to render.
 - Underline-only inputs for the salary field; **boxed `DD / MM / YYYY` inputs for dates** (feels like filling a form)
 - BMC button labeled **"Buy me a chai"** (India, not SF)
 - Amount words in cheque-writing register: *"Rupees eleven lakh sixty-three thousand only"*
@@ -137,6 +138,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.0.1` — `§` replaced with `₹` ornament; payout reference reads `Sec. 4(2)`
 - `2.0.0` — ledger palette, typed `DD / MM / YYYY` date fields, accessibility pass
 - `1.0.0` — initial parchment build (superseded; its cream + vermilion palette read as AI-generated)
 
