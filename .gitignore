@@ -21,3 +21,6 @@ Thumbs.db
 node_modules/
 package-lock.json
 yarn.lock
+
+# Claude Code local tooling (vendored skills, local settings)
+.claude/

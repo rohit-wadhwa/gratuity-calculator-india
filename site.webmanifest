@@ -4,7 +4,7 @@
   "description": "Free gratuity calculator under the Payment of Gratuity Act, 1972.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f0e8",
-  "theme_color": "#0f5132",
+  "background_color": "#ECEFF3",
+  "theme_color": "#ECEFF3",
   "icons": []
 }
