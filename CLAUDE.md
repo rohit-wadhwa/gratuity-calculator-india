@@ -324,6 +324,17 @@ An **AI Overview** sits above all of them, absorbing clicks before any result. T
 
 Razorpay's page carries the title and meta description of their payment-gateway page — *"Best Payment Gateway in India to Accept Online Payments"* — and its `<h1>` is the result value, `₹ 0`. Aditya Birla is the strongest on-page competitor: 2,599 words and 78 internal calculator links, paid for by harvesting name, email, phone and OTP before showing a result.
 
+### Google Search Console
+
+Property: **URL prefix** `https://gratuity-calculator-india.vercel.app/`, verified 22 Aug 2026 under the **personal** account `rohit.wadhwa52@gmail.com`.
+
+**Chrome defaults to the SourceFuse work account.** `rohit.wadhwa@sourcefuse.com` is the default Google identity in this browser and is Workspace-managed. Adding a personal side project there would put it under employer administration and lose it on leaving. Always check the avatar menu and switch to the personal account (`/u/1/` in Search Console URLs) before touching anything.
+
+- **Domain properties are impossible here** — they need DNS records on `vercel.app`. URL prefix is the only route until a custom domain exists.
+- Verified by the `<meta name="google-site-verification">` tag in `index.html`. Google requires it to stay after verification — **do not remove it**. Chosen over the HTML-file method so it lives in the file we already manage.
+- `sitemap.xml` submitted. A "Couldn't fetch" status with an empty **Last read** means Google has not attempted it yet, not that it failed — verify independently with `curl -A Googlebot` before chasing it.
+- Manual **Request indexing** has a small daily quota shared across all properties on the account. It was exhausted on 22 Aug; retry another day. The sitemap is the real mechanism, this is only a nudge.
+
 **Rules for this page:**
 
 - **Canonical, `og:url` and `og:image` are absolute in the static HTML.** They used to be relative and rewritten by JS from `window.location`; that pointed preview deployments at themselves. Do not reintroduce the rewrite.
