@@ -137,6 +137,7 @@ curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^
 ```
 
 Version history:
+- `2.3.1` — SERP-targeted FAQs, debounced screen-reader status, `--neg-soft` token
 - `2.3.0` — SEO content pass: 826 → 1,855 words, 9 h2 / 5 h3, 12 FAQs, absolute canonical
 - `2.2.1` — ornament is a rule, not a glyph
 - `2.2.0` — lifetime ₹20 lakh aggregate cap, government-employee exemption, worked rounding FAQ
@@ -186,6 +187,7 @@ These were bugs once. Keep them fixed.
 - **Exactly six months does NOT round up.** Section 4(2) says "in excess of six months". 17 years 6 months is 17 years; 17 years 8 months is 18. Competitor pages get this wrong — Groww's own page states 17y6m rounds to 18, which overstates the payout by a full year. Our FAQ answers this explicitly because it is the most confused rule and a live search term.
 - **The exemption is the least of three** — ₹20,00,000, the gratuity actually received, and the amount under the Act's formula. For this calculator the last two are the same figure, so the arithmetic is `min(20L, computed)`, but the wording must state all three or it is incomplete. Do not repeat the ₹10 lakh figure seen on some competitor pages; that ceiling was superseded in March 2018.
 - **The FAQPage JSON-LD is generated from the page, not hand-written.** After editing any `<details>`, rebuild it so the two cannot drift, then re-run the parity check above.
+- **The result is announced to screen readers ONCE, after typing settles.** `calc()` runs on every keystroke; a live region on the certificate with `aria-atomic="true"` made a screen reader read every intermediate amount aloud. The announcement now goes to a visually-hidden `#srStatus` region debounced by 600ms. Do not put `aria-live` back on `.certificate`.
 - **The printed estimate must never look officially issued.** No reference number, no seal, no signature block. `ESTIMATE ONLY — NOT AN OFFICIAL DOCUMENT` sits inside the bordered box, not in fine print, and states it is not issued by any employer or authority. Print swaps the whole interactive page for `#summary`.
 - **">6 months rounds up" counts days, not just whole months.** `cy()` returns `{full, rem, days, rounded}`; `rounded` bumps when `rem>6 || (rem===6 && days>0)`. Six months and zero days is dropped; six months and one day rounds up.
 - **FAQPage JSON-LD must mirror the on-page `<details>` questions exactly** — same count, same wording. Google requires FAQ rich-result content to be visible on the page. Verify with:
@@ -279,6 +281,14 @@ Update `sitemap.xml` `<lastmod>` to today's date. Optionally submit the sitemap 
 
 **The ceiling is the domain, not the page.** The site is on `gratuity-calculator-india.vercel.app` with no custom domain. "Gratuity calculator" is a YMYL-financial head term where Google leans hardest on site authority, and the incumbents are Groww, Paytm, Razorpay and Aditya Birla Capital. On-page work cannot close that gap on a free platform subdomain. **Buying a custom domain is the highest-leverage single action available** and everything below is worth more once it exists.
 
+**The live SERP for "gratuity calculator" (Aug 2026), in order:** groww.in, paytm.com, pensionersportal.gov.in, razorpay.com, adityabirlacapital.com, bajajbroking.in, hdfclife.com, cleartax.in. Every result is a major financial brand or a government portal — there is not one independent site on page one. That is the honest measure of the head term.
+
+An **AI Overview** sits above all of them, absorbing clicks before any result. That rewards clear factual statements with explicit citations, which is why the content carries section references.
+
+**People Also Ask** (answer these verbatim, they feed both PAA and the AI Overview): *How is gratuity calculated in 2026?* · *What is 15 and 26 in gratuity formula?* · *Is gratuity calculated on basic salary or CTC?* · *Who will get 20 lakhs gratuity?*
+
+**Related searches:** gratuity calculator formula · for private employees · for 5 years · **in months** · for government employees. The "in months" one is worth noting — this calculator supports it and most do not.
+
 **Where this page can actually win** — long-tail queries where the incumbents are weak, wrong, or hostile:
 
 | Query | Why we win |
@@ -307,6 +317,8 @@ Razorpay's page carries the title and meta description of their payment-gateway 
 - **Every claim carries its section reference** (`Sec. 4(2)`, `Sec. 7(3A)`). Accuracy is the differentiator against bigger sites — it is the one thing that does not require domain authority.
 - **Update `dateModified` in the WebApplication schema and `<lastmod>` in `sitemap.xml`** on any content change.
 - Do not chase word count with filler. The content added in 2.3.0 is statutory fact people actually search for.
+- **Do not add `HowTo` schema.** Bajaj Broking still ships it; Google retired HowTo rich results in September 2023 and it earns nothing.
+- **Every worked figure quoted in the copy must match the calculator.** The 2.3.1 FAQs quote ₹1,44,231 for 5 years at ₹50,000 and ₹86,538 at ₹30,000 — both verified against the running page. Re-check if the formula ever changes.
 
 ## Scope boundary
 
