@@ -157,6 +157,8 @@ input:focus-visible,.dbox:focus-visible,.seg button:focus-visible,.btn:focus-vis
 .btn.line:hover{background:var(--card);border-color:var(--ink)}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 .print-here{margin-top:20px;width:100%;justify-content:center}
+.share-wa svg,.share-x svg{opacity:.85}
+.share-note{width:100%;margin-top:12px;font-size:12px;color:var(--ink-3);line-height:1.5;font-family:'IBM Plex Sans',sans-serif}
 .btn:disabled:hover{background:transparent;border-color:var(--rule-soft)}
 .helper{margin-top:12px;border-top:1px dotted var(--rule-soft)}
 .helper summary{cursor:pointer;list-style:none;padding:10px 0 2px;font-size:12.5px;font-weight:500;color:var(--accent);display:flex;align-items:center;gap:7px;font-family:'IBM Plex Sans',sans-serif;min-height:34px}
@@ -438,7 +440,10 @@ body{padding:0;background:#fff;color:#000}header,.card,.notes,.faq,.actions,.foo
 </section>
 <div class="actions">
 <button class="btn dark" id="copyBtn" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg><span>Share this calculator</span></button>
+<a class="btn line share-wa" id="waBtn" href="https://wa.me/?text=Free%20gratuity%20calculator%20for%20India.%20Enter%20your%20joining%20date%20and%20last%20working%20day%20and%20see%20exactly%20what%20you%27re%20owed%20under%20the%20Payment%20of%20Gratuity%20Act%2C%201972.%20No%20signup%2C%20nothing%20leaves%20your%20browser.%20https%3A//gratuity-calculator-india.vercel.app/" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-4-1L3 21l2.1-5a8.4 8.4 0 0 1-1-4 8.4 8.4 0 0 1 8.4-8.4 8.4 8.4 0 0 1 8.5 8.4Z"/></svg><span>WhatsApp</span></a>
+<a class="btn line share-x" id="xBtn" href="https://twitter.com/intent/tweet?text=Free%20gratuity%20calculator%20for%20India.%20Enter%20your%20joining%20date%20and%20last%20working%20day%20and%20see%20exactly%20what%20you%27re%20owed%20under%20the%20Payment%20of%20Gratuity%20Act%2C%201972.%20No%20signup%2C%20nothing%20leaves%20your%20browser.&amp;url=https%3A//gratuity-calculator-india.vercel.app/" target="_blank" rel="noopener noreferrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.4l-5-6.6-5.8 6.6H2.7l7.3-8.3L2 2h6.6l4.5 6 5.8-6Zm-1.1 18h1.7L8.3 3.8H6.5L17.8 20Z"/></svg><span>X</span></a>
 <a class="btn chai" href="https://buymeacoffee.com/rohit.wadhwa" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg><span>Buy me a chai</span></a>
+<p class="share-note" id="shareNote" hidden>Tip: use <strong>Share</strong> to post this to Instagram, Telegram or anywhere else &mdash; it opens your phone&rsquo;s own share sheet.</p>
 </div>
 <section class="summary" id="summary" aria-hidden="true">
 <div class="sum-head"><span class="sum-title">GRATUITY ESTIMATE</span><span class="sum-date" id="sumDate"></span></div>
@@ -471,7 +476,7 @@ body{padding:0;background:#fff;color:#000}header,.card,.notes,.faq,.actions,.foo
 <script>
 (function(){
 var $=function(id){return document.getElementById(id)};
-var APP_VERSION='2.7.0';                          // bump on each deploy to identify the running version
+var APP_VERSION='2.8.0';                          // bump on each deploy to identify the running version
 var BUILD_DATE='2026-08-22';
 var CAP=2000000,mode='dates',cov=26;
 var ONES=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
@@ -597,7 +602,18 @@ SEQ.forEach(function(id,i){
 });
 (function(){var t=new Date();$('exitD').value=pad2(t.getDate());$('exitM').value=pad2(t.getMonth()+1);$('exitY').value=String(t.getFullYear())})();
 $('printBtn').addEventListener('click',function(){window.print()});
+// navigator.share opens the OS share sheet, which is the only way to reach Instagram -
+// Instagram has no web share URL to link to. Desktop falls back to copying the link.
+var SHARE={title:'Gratuity Calculator India',
+  text:"Free gratuity calculator for India. Enter your joining date and last working day and see exactly what you're owed under the Payment of Gratuity Act, 1972. No signup, nothing leaves your browser.",
+  url:'https://gratuity-calculator-india.vercel.app/'};
+if(navigator.share){
+  var lbl=$('copyBtn').querySelector('span');
+  if(lbl)lbl.textContent='Share';
+  var note=$('shareNote'); if(note)note.hidden=false;
+}
 $('copyBtn').addEventListener('click',function(){
+  if(navigator.share){navigator.share(SHARE).catch(function(){});return}
   var s=$('copyBtn').querySelector('span'),o=s.textContent;
   var done=function(msg){s.textContent=msg;setTimeout(function(){s.textContent=o},1600)};
   var url=window.location.href;
