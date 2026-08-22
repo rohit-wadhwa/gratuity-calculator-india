@@ -119,16 +119,21 @@ EOF
 
 ## Versioning
 
-The live version is stated in the footer (`v2.0.0 · 22 Aug 2026`) so you can tell at a glance what is deployed.
+The live version shows in the footer (`v2.0.0 · 22 Aug 2026`) so you can tell at a glance what is deployed. This follows the same convention as the other apps in `~/mini_project` — a constant at the top of the script, rendered into an element:
 
-**One source of truth.** `<meta name="version">` and `<meta name="build-date">` in the head; JS renders them into `#ver` and exposes `window.APP_VERSION`. Never hard-code the version into the footer text — it will drift.
+```js
+var APP_VERSION='2.0.0';   // bump on each deploy to identify the running version
+var BUILD_DATE='2026-08-22';
+```
 
-**Bump on every deploy that changes what a user sees.** Patch for copy or colour tweaks, minor for a new field or section, major for a redesign or a change to how input works. Update `build-date` at the same time.
+`APP_VERSION` is the single source of truth and is also exposed as `window.APP_VERSION`. Never hard-code the version into the footer text — it will drift.
+
+**Bump on every deploy that changes what a user sees.** Patch for copy or colour tweaks, minor for a new field or section, major for a redesign or a change to how input works. Update `BUILD_DATE` at the same time.
 
 Check what is actually live:
 
 ```bash
-curl -s https://gratuity-calculator-india.vercel.app | grep -oE 'name="(version|build-date)" content="[^"]*"'
+curl -s https://gratuity-calculator-india.vercel.app | grep -oE "APP_VERSION='[^']*'|BUILD_DATE='[^']*'"
 ```
 
 Version history:
